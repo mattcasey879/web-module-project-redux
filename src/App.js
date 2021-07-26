@@ -2,7 +2,6 @@ import React from "react";
 
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-
 import MovieList from './components/MovieList';
 import Movie from './components/Movie';
 
@@ -12,7 +11,7 @@ import AddMovieForm from './components/AddMovieForm';
 import FavoriteMovieList from './components/FavoriteMovieList';
 
 const App = props => {
-  const displayFavorites = true;
+  
 
   return (
     <div>
@@ -23,7 +22,7 @@ const App = props => {
       <div className="container">
         <MovieHeader/>
         <div className="row ">
-          {displayFavorites && <FavoriteMovieList/>}
+          {props.displayFavs && <FavoriteMovieList/>}
         
           <Switch>
             <Route exact path="/movies/add">
@@ -47,5 +46,11 @@ const App = props => {
     </div>
   );
 };
+const mapPropsToState = (state) => {
+  return {
+    displayFavs: state.favoritesReducer.displayFavs
+  }
+}
 
-export default App;
+
+export default connect(mapPropsToState)(App);
